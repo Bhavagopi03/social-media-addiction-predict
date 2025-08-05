@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Social Media Addiction Predictor</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #e3eaf2, #cfd9df);
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 50px 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    h2 {
+      font-size: 28px;
+      color: #4b0082;
+      margin-bottom: 30px;
+      animation: fadeUp 1.2s ease forwards;
+    }
+
+    form {
+      background: #f7f8fa;
+      padding: 30px 40px;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(60, 60, 60, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 350px;
+      animation: fadeUp 1.4s ease forwards;
+    }
+
+    input[type="number"],
+    select {
+      padding: 12px 14px;
+      border: 1px solid #aaa;
+      border-radius: 10px;
+      font-size: 15px;
+      background-color: #f0f4f8;
+      transition: 0.3s ease;
+    }
+
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #7c4dff;
+      box-shadow: 0 0 5px rgba(124, 77, 255, 0.3);
+    }
+
+    input[type="submit"] {
+      padding: 14px;
+      background: linear-gradient(135deg, #5c6bc0, #7c4dff);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background: linear-gradient(135deg, #3f51b5, #512da8);
+      transform: scale(1.03);
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 16px;
+      color: #333;
+      background-color: #e0e7ff;
+      padding: 20px;
+      border-radius: 12px;
+      width: 380px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      animation: fadeUp 1.6s ease forwards;
+    }
+
+    .result h4 {
+      margin-top: 0;
+      color: #303f9f;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+
+    li::before {
+      content: "🔹 ";
+      margin-right: 6px;
+    }
+
+    label {
+      font-size: 14px;
+      color: #333;
+      margin-top: 8px;
+    }
+
+    @media screen and (max-width: 400px) {
+      form, .result {
+        width: 100%;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h2>🧠 Social Media Addiction Predictor</h2>
+
+  <form action="/predict" method="post">
+    <input type="number" name="age" placeholder="Age" required min="10" max="100">
+
+    <select name="gender" required>
+      <option value="">Select Gender</option>
+      <option value="0">Male</option>
+      <option value="1">Female</option>
+      <option value="2">Other</option>
+    </select>
+
+    <input type="number" name="daily_usage" placeholder="Daily Usage (hours)" required step="0.1" min="0" max="24">
+
+    <input type="number" name="sleep_hours" placeholder="Sleep Hours (per day)" required step="0.1" min="0" max="24">
+
+    <select name="platform" required>
+      <option value="">Most Used Platform</option>
+      <option value="0">Instagram</option>
+      <option value="1">YouTube</option>
+      <option value="2">Facebook</option>
+      <option value="3">Snapchat</option>
+      <option value="4">Twitter</option>
+    </select>
+
+    <label for="relationship">Relationship Status:</label>
+    <select name="relationship" id="relationship" required>
+      <option value="">--Select--</option>
+      <option value="0">Single</option>
+      <option value="1">In a Relationship</option>
+      <option value="2">Married</option>
+    </select>
+
+    <input type="submit" value="Predict">
+  </form>
+
+  {% if prediction_text %}
+    <div class="result">
+      <h4>Results:</h4>
+      {{ prediction_text | safe }}
+    </div>
+  {% endif %}
+</body>
+</html>
